@@ -1,17 +1,17 @@
 from flask import Flask, redirect, url_for
+from flask import render_template
+
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def index():
+    return render_template('cv.html')
 
-@app.route('/home1')
-def hello_home1():
-    return redirect('/')
 
-@app.route('/home2')
-def hello_home2():
-   return redirect(url_for('HELLO_WORLD'))
+@app.route('/assignment8')
+def assignment8():
+    return render_template('assignment8.html', hobbies=['pilates', 'surfing', 'reading'])
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

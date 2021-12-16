@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+          <meta charset="UTF-8">
+          <link rel="stylesheet" href='{{ url_for('static',filename='cv.css') }}'>
+          <script src='{{ url_for('static', filename = 'cv.js') }}'></script>
+    </head>
+    <header>
+            <div class="full-name">
+            <span class="first-name">Mor</span>
+            <span class="last-name">Levy</span>
+          </div>
+          <div class="contact-info">
+            <span class="email">Email: </span>
+            <span class="email-val">morlevy100@gmail.com</span>
+            <span class="separator"></span>
+            <span class="phone">Phone: </span>
+            <span class="phone-val">0524570705</span>
+          </div>
+        </header>
+    <main>
+            <div class="about">
+            <span class="position">About: </span>
+            <span class="desc">
+                Mor, 26 years old: I am an ambitious, reliable, goal oriented industrial engineering and management student at Ben Gurion University. Looking for a full-time position. I have Military service experience in the field of Data and research.
+            </span>
+          </div>
+        </main>
+        <aside><button type="button" onclick="location.href='https://www.linkedin.com/in/mor-levy-041337209/';">My Linkedin profile</button></aside>
+        <footer onload="myFunction">
+            <form>
+                <h1>Contact me</h1>
+                <label for="Phone">Your Phone number:</label><br>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{7}" required><br>
+                <button onclick="myFunction()">Send</button>
+            </form>
+        </footer>
+    </html>
