@@ -1,0 +1,15 @@
+body {
+    margin: 0 auto;
+    max-width: 56em;
+    padding: 1em 0;
+    background: #cfddea;
+    text-align: left;
+  }
+
+h2 {
+  color: cornflowerblue;
+  text-align: left;
+  font-size: 2em;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
