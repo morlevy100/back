@@ -1,7 +1,29 @@
-from flask import Flask, redirect, url_for, request
-from flask import render_template, session
+
+from flask import Flask, request
+from flask import render_template, session, Blueprint
+import mysql.connector
+from interact_with_DB import interact_db
+from interact_with_DB import *
+
 
 app = Flask(__name__)
+app.secret_key = '12377'
+app.config.from_pyfile('settings.py')
+
+from pages.assignment10.assignment10 import assignment10
+app.register_blueprint(assignment10)
+
+
+from pages.assignment10.assignment10 import insert_user
+app.register_blueprint(insert_user)
+
+
+from pages.assignment10.assignment10 import delete_user
+app.register_blueprint(delete_user)
+
+
+from pages.assignment10.assignment10 import update_user
+app.register_blueprint(update_user)
 
 
 @app.route('/')
@@ -14,8 +36,7 @@ def assignment8():
     return render_template('assignment8.html', hobbies=['pilates', 'surfing', 'reading'])
 
 
-users = ['tal', 'maya', 'chen', 'lee', 'ruth']
-app.secret_key = '222'
+users2 = ['tal', 'maya', 'chen', 'lee', 'ruth']
 
 
 @app.route('/assignment9', methods=['GET', 'POST'])
@@ -26,9 +47,9 @@ def assignment9():
         if 'name' in request.args:
             session['name'] = request.args['name']
             if session['name'] == '':
-                output = users
+                output = users2
             else:
-                if session['name'] in users:
+                if session['name'] in users2:
                     output = 'your choice is:' + session['name']
                 else:
                     output = 'user not found'
@@ -39,11 +60,4 @@ def assignment9():
             else:
                 session['name'] = request.form['name']
                 flag = ''
-    return render_template('assignment9.html', output = output, flag = flag)
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-users = ['tal', 'maya', 'chen', 'lee', 'ruth']
+    return render_template('assignment9.html', output=output, flag=flag)

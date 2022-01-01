@@ -6,4 +6,5 @@ function myFunction() {
     } else {
     document.getElementById("demo").innerHTML = "Input OK";
     }
+
     }
