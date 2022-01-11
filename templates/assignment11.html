@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms</title>
+</head>
+<body>
+    <h2>Req frontend</h2>
+        <h2>Extract user:</h2>
+        <button onclick="getusers()">Get Users</button>
+        <main>
+
+
+        </main>
+        <script src ="/static/fetch_example.js"></script>
+</body>
+
+<footer>
+    <h2>Req backend</h2>
+    <form action="/req_backend">
+        <input type="number" name="id" placeholder="id">
+        <input type="submit" value="get user">
+    </form>
+</footer>
+
+  {% if users %}
+            <h3>users {{ users.id }}: </h3>
+            <img src="{{ users.avatar }}" alt="pic">
+            <h4>first name: {{ users.first_name }}</h4>
+            <h4>last name: {{ users.last_name }}</h4>
+            <h4>email: {{ users.email }}</h4>
+            <hr>
+        {% endfor %}
+    {% endif %}
+
+</html>
