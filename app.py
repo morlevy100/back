@@ -1,10 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask import render_template, session, Blueprint
 import mysql.connector
 import requests
-import aiohttp
-import random
-import asyncio
 import mysql.connector
 
 
@@ -69,17 +66,20 @@ def assignment9():
     return render_template('assignment9.html', output=output, flag=flag)
 
 
-@app.route('/assignment11/users')
+@app.route('/assignment11/users', methods = ['POST', 'GET'])
 def assignment11():
-    db = mysql.connector.connect(host='127.0.0.1',
-                                 user='root',
-                                 passwd='root',
-                                 db='users',s
-                                 port=3306)
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("select * from users;")
-    result = cursor.fetchall()
-    return render_template(result=result)
+    i=0
+    usersdic = {}
+    query = 'select * from users;'
+    users = interact_db(query=query, query_type='fetch')
+    for user in users:
+        usersdic = {
+            f'id': users[i].id,
+            'name': users[i].name,
+            'email': users[i].email,
+        }
+        i = i+1
+    return jsonify(usersdic)
 
 
 def get_user(num):
@@ -92,9 +92,9 @@ def get_user(num):
 
 
 def get_users(num):
-        res = requests.get(f'https://reqres.in/api/users/{num}')
-        res = res.json()
-        return res
+    res = requests.get(f'https://reqres.in/api/users/{num}')
+    res = res.json()
+    return res
 
 
 @app.route('/assignment11/outer_source')
@@ -106,4 +106,31 @@ def req_backend_async_func():
     return render_template('assignment11.html', users=users)
 
 
+@app.route('/assignment12/restapi_users/<int:USER_ID>')
+def assignment12(USER_ID):
+    query = 'select * from users where id=%s;' % USER_ID
+    users = interact_db(query=query, query_type='fetch')
+    if len(users) == 0:
+        user_dict = {
+            'status': 'failed',
+            'message': 'user not found',
+        }
+    else:
+        user_dict = {
+            f'id': users[0].id,
+            'name': users[0].name,
+            'email': users[0].email,
+        }
+    return jsonify(user_dict)
 
+
+@app.route('/assignment12/restapi_users/')
+def assignment12null():
+    query = 'select * from users where id=555;'
+    users = interact_db(query=query, query_type='fetch')
+    user_dict = {
+        f'id': users[0].id,
+        'name': users[0].name,
+        'email': users[0].email,
+    }
+    return jsonify(user_dict)
